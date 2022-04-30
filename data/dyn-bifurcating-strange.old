@@ -1,0 +1,9 @@
+Gene	Rule
+g1	not(g4 or g5)
+g2	g1
+g3	g2
+g4	((g3 or g4) and (not g5))
+g5	((g5 or g3) and (not g4))
+g6	((g4 and (not (g5 or g8))) or ((g7 or g6) and (g5 and (not g4))))
+g7	((g6 and (g4 and (not g5))) or (g8 and (g5 and (not g4))))
+g8	(((g7 or g8) and (g4 and (not g5))) or (g5 and (not (g4 or g6))))
