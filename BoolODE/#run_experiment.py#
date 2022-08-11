@@ -324,6 +324,7 @@ def simulateAndSample(argdict):
     # SZ: Jacobian
     model_f = lambda x: Model(x, None, pars)
     JModel = jacobian(model_f)
+    # save params now because we will need to load them later for calculating Jacobians
     pd.DataFrame(pars).to_csv(outPrefix + 'param.csv')
     # End SZ
     while retry:

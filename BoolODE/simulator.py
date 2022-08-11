@@ -1,4 +1,5 @@
 import numpy as np
+import autograd.numpy as anp
 
 def noise(x,t):
     # Controls noise proportional to

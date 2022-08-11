@@ -1,0 +1,7 @@
+(undo-tree-save-format-version . 1)
+"badc160a62cbd2ffe3642a2e9546b34ee4504a69"
+[nil nil nil nil (25331 25644 332091 404000) 0 nil]
+([nil nil ((28783 . 28792) (t 25310 7090 936202 149000)) nil (25331 25644 332080 998000) 0 nil])
+([nil nil ((#(" " 0 1 (fontified t face font-lock-comment-face)) . -28794) (undo-tree-id0 . -1) 28795 (28784 . 28795) (#("u" 0 1 (fontified t face font-lock-comment-face)) . -28784) (undo-tree-id1 . -1) (#("n" 0 1 (fontified t face font-lock-comment-face)) . -28785) (undo-tree-id2 . -1) (#("u" 0 1 (fontified t face font-lock-comment-face)) . -28786) (undo-tree-id3 . -1) 28787 (28783 . 28787) (#(" " 0 1 (fontified t face font-lock-comment-face)) . -28783) (undo-tree-id4 . -1) 28784 (28765 . 28784) (#("@" 0 1 (fontified t)) . -28765) (undo-tree-id5 . -1) (#("#" 0 1 (fontified t face font-lock-comment-delimiter-face)) . -28766) (undo-tree-id6 . -1) (#(" " 0 1 (fontified t face font-lock-comment-delimiter-face)) . -28767) (undo-tree-id7 . -1) 28768 (28765 . 28768) (28752 . 28765) (t 25331 25644 331767 411000)) nil (25331 25653 230671 652000) 0 nil])
+([nil current ((28816 . 28824) (28795 . 28816) (#("for " 0 4 (fontified t face font-lock-comment-face)) . -28795) (undo-tree-id8 . -4) 28799 (28794 . 28799) (t 25331 25653 238385 203000)) nil (25331 25658 340252 81000) 0 nil])
+nil

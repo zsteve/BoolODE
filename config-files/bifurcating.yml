@@ -10,14 +10,14 @@ jobs:
   - name: "dyn-BF"
     model_definition: "dyn-bifurcating.txt"
     model_initial_conditions: "dyn-bifurcating_ics.txt"
-    simulation_time: 8
-    num_cells: 2000
+    simulation_time: 1
+    num_cells: 250
     do_parallel: True
     nClusters: 2    
 
 post_processing:
   GenSamples:
-    - sample_size: 2000
+    - sample_size: 100
       nDatasets: 1
 
   DimRed:

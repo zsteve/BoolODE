@@ -1,17 +1,20 @@
 import os
 from tqdm import tqdm
-import numpy as np
+import autograd.numpy as np
+from autograd import jacobian
 import pandas as pd
 from pathlib import Path
 from sklearn.cluster import KMeans
 from sklearn.manifold import TSNE
 import matplotlib.pyplot as plt
+from itertools import product
 
-def genSamples(opts):
+def genSamples(opts, model_func):
     """
     Generate samples of cells from a given set of simulations. This sample
     will then be used for other post processing steps. 
     """
+
     numclusters = opts['nClusters']
     num_simulations = opts['num_cells']
     
@@ -24,6 +27,7 @@ def genSamples(opts):
         sample_size = num_simulations
         
     df = pd.read_csv(opts['outPrefix'] + '/simulations/E0.csv',index_col=0)
+    df_full = pd.read_csv(opts['outPrefix'] + '/simulations/Efull0.csv',index_col=0)
     maxtime = len(df.columns)
 
     generatedPaths = []
@@ -39,6 +43,7 @@ def genSamples(opts):
         # Create cell ids
         simids = np.random.choice(range(num_simulations), size=sample_size, replace=False)
         fids = ['E'+ str(sid) + '.csv' for sid in simids]            
+        fids_full = ['Efull'+ str(sid) + '.csv' for sid in simids]            
         timepoints = np.random.choice(range(1,maxtime), size=sample_size)
         min_t = min(timepoints)
         max_t = max(timepoints)
@@ -47,12 +52,38 @@ def genSamples(opts):
         # Read simulations from input dataset #psetid
         # to build a sample
         sample = []
-        for fid, cid in tqdm(zip(fids, cellids)):
+        # SZ: store Jacobians and velocity vectors
+        sample_jac = []
+        sample_v = []
+        # SZ: autograd for Jacobian
+        pars=list(pd.read_csv(opts['outPrefix'] + '/simulations/param.csv', index_col=0).to_numpy().flatten())
+        model_f = lambda x: model_func.Model(x, None, pars)
+        JModel = jacobian(model_f)
+        for fid, fid_full, cid in tqdm(zip(fids, fids_full, cellids)):
             df = pd.read_csv( opts['outPrefix'] + '/simulations/' + fid, index_col=0)
             df.sort_index(inplace=True)
             sample.append(df[cid].to_frame())
+            # SZ: sample full gene+protein expr state for Jacobian calculation
+            # janky code but it works??
+            df_full = pd.read_csv( opts['outPrefix'] + '/simulations/' + fid_full, index_col=0)
+            # don't sort index for Jacobian calculation
+            J = JModel(df_full[cid].to_numpy().flatten())
+            x_id = [i for (i, x) in enumerate(df_full.index) if 'x_' in x]
+            p_id = [i for (i, x) in enumerate(df_full.index) if 'p_' in x]
+            g_list = [x.split('_')[1] for (i, x) in enumerate(df_full.index) if 'x_' in x]
+            interactionlist = list([x + '_' + y for (x, y) in product(g_list, repeat = 2)])
+            sample_jac.append(pd.DataFrame(J[x_id, :][:, p_id].flatten(), index = pd.Index(interactionlist)))
+            # calculate velocity
+            sample_v.append(pd.DataFrame(model_f(df_full[cid].to_numpy().flatten())[x_id], index = pd.Index(g_list)))
+            
         sampledf = pd.concat(sample,axis=1)
         sampledf.to_csv(outfpath + '/ExpressionData.csv')
+        sampledf_jac = pd.concat(sample_jac,axis=1)
+        sampledf_jac.columns = sampledf.columns
+        sampledf_jac.to_csv(outfpath + '/JacobianData.csv')
+        sampledf_v = pd.concat(sample_v,axis=1)
+        sampledf_v.columns = sampledf.columns
+        sampledf_v.to_csv(outfpath + '/VelocityData.csv')
         ## Read refNetwork.csv
         refdf = pd.read_csv(opts['outPrefix'] + '/refNetwork.csv')
         refdf.to_csv(outfpath + '/refNetwork.csv',index=False)

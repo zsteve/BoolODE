@@ -11,13 +11,13 @@ jobs:
     model_definition: "dyn-linear.txt"
     model_initial_conditions: "dyn-linear_ics.txt"
     simulation_time: 5
-    num_cells: 1000
+    num_cells: 
     do_parallel: True
         
 post_processing:
   GenSamples:
-    - sample_size: 500
+    - sample_size: 10
       nDatasets: 1
 
   DimRed:
-    - perplexity: 100
+    - perplexity: 10

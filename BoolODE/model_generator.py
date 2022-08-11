@@ -598,7 +598,8 @@ class GenerateModel:
 
         with open(self.path_to_ode_model,'w') as out:
             out.write('#####################################################\n')
-            out.write('import numpy as np\n')
+            # SZ: use autograd.numpy here for computing jacobian later 
+            out.write('import autograd.numpy as np\n')
             out.write('# This file is created automatically\n')
             out.write('def Model(Y,t,pars):\n')
             out.write('    # Parameters\n')
