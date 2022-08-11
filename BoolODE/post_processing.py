@@ -8,8 +8,10 @@ from sklearn.cluster import KMeans
 from sklearn.manifold import TSNE
 import matplotlib.pyplot as plt
 from itertools import product
+from BoolODE import model_generator as mg
+from importlib.machinery import SourceFileLoader
 
-def genSamples(opts, model_func):
+def genSamples(opts):
     """
     Generate samples of cells from a given set of simulations. This sample
     will then be used for other post processing steps. 
@@ -57,7 +59,9 @@ def genSamples(opts, model_func):
         sample_v = []
         # SZ: autograd for Jacobian
         pars=list(pd.read_csv(opts['outPrefix'] + '/simulations/param.csv', index_col=0).to_numpy().flatten())
-        model_f = lambda x: model_func.Model(x, None, pars)
+        print('Prefix: ', opts['outPrefix'])
+        model = SourceFileLoader("model", opts['outPrefix'] + '/model.py').load_module()
+        model_f = lambda x: model(x, None, pars)
         JModel = jacobian(model_f)
         for fid, fid_full, cid in tqdm(zip(fids, fids_full, cellids)):
             df = pd.read_csv( opts['outPrefix'] + '/simulations/' + fid, index_col=0)

@@ -271,7 +271,6 @@ def startRun(settings):
                              outPrefix=settings['outprefix'])
     print('Input file generation took %0.2f s' % (time.time() - start))
     print("BoolODE.py took %0.2fs"% (time.time() - startfull))
-    return model
 
 def simulateAndSample(argdict):
     """

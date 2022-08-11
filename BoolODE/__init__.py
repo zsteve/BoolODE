@@ -126,9 +126,8 @@ class BoolODE(object):
                 os.makedirs(outdir)
         if self.global_settings.do_simulations:
             print('Starting simulations')
-            # for jobid in alljobs:
-            #     runexp.startRun(self.jobs[jobid])
-            self.model_funcs = [runexp.startRun(self.jobs[jobid]) for jobid in alljobs]
+            for jobid in alljobs:
+                runexp.startRun(self.jobs[jobid])
         if self.global_settings.do_post_processing:
             print('Starting post processing')
             self.do_post_processing()
@@ -171,7 +170,7 @@ class BoolODE(object):
                     settings['nDatasets'] = gsamp.get('nDatasets', 1)
                     settings['name'] = self.jobs[jobid]['name']
                     settings['nClusters'] = self.jobs[jobid]['nClusters']
-                    generatedPaths[jobid] = po.genSamples(settings, self.model_funcs[jobid])
+                    generatedPaths[jobid] = po.genSamples(settings)
         
         if self.post_settings.dropout_jobs is not None:
             print('Starting genDropouts...')
