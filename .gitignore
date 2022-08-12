@@ -1,3 +1,10 @@
+Synthetic/dyn*
+Synthetic/*.out
+Curated/*.out
+Curated/mCAD
+Curated/HSC
+Curated/VSC
+
 # Byte-compiled / optimized / DLL files
 */__pycache__/
 *.py[cod]

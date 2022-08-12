@@ -61,7 +61,7 @@ def genSamples(opts):
         pars=list(pd.read_csv(opts['outPrefix'] + '/simulations/param.csv', index_col=0).to_numpy().flatten())
         print('Prefix: ', opts['outPrefix'])
         model = SourceFileLoader("model", opts['outPrefix'] + '/model.py').load_module()
-        model_f = lambda x: model.Model(x, None, pars)
+        model_f = lambda x: model(x, None, pars)
         JModel = jacobian(model_f)
         for fid, fid_full, cid in tqdm(zip(fids, fids_full, cellids)):
             df = pd.read_csv( opts['outPrefix'] + '/simulations/' + fid, index_col=0)
