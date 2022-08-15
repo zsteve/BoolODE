@@ -1,5 +1,7 @@
 Synthetic/dyn*
 Synthetic/*.out
+Synthetic_/dyn*
+Synthetic_/*.out
 Curated/*.out
 Curated/mCAD
 Curated/HSC

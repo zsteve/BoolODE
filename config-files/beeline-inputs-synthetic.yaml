@@ -11,28 +11,28 @@ jobs:
     model_definition: "dyn-linear.txt"
     model_initial_conditions: "dyn-linear_ics.txt"
     simulation_time: 5
-    num_cells: 1000
+    num_cells: 500
     do_parallel: True
 
   - name: "dyn-LL"
     model_definition: "dyn-linear-long.txt"
     model_initial_conditions: "dyn-linear-long_ics.txt"
     simulation_time: 15
-    num_cells: 1000
+    num_cells: 500
     do_parallel: True
     
   - name: "dyn-CY"
     model_definition: "dyn-cycle.txt"
     model_initial_conditions: "dyn-cycle_ics.txt"
     simulation_time: 8
-    num_cells: 1000
+    num_cells: 500
     do_parallel: True    
 
   - name: "dyn-BF"
     model_definition: "dyn-bifurcating.txt"
     model_initial_conditions: "dyn-bifurcating_ics.txt"
     simulation_time: 8
-    num_cells: 1000
+    num_cells: 500
     do_parallel: True
     nClusters: 2    
  
@@ -40,7 +40,7 @@ jobs:
     model_definition: "dyn-bifurcating-converging.txt"
     model_initial_conditions: "dyn-bifurcating-converging_ics.txt"
     simulation_time: 8
-    num_cells: 1000
+    num_cells: 500
     do_parallel: True
     nClusters: 2    
  
@@ -48,7 +48,7 @@ jobs:
     model_definition: "dyn-trifurcating.txt"
     model_initial_conditions: "dyn-trifurcating_ics.txt"
     simulation_time: 8
-    num_cells: 1000
+    num_cells: 500
     do_parallel: True
     nClusters: 3
 
@@ -56,8 +56,12 @@ post_processing:
   GenSamples:
     - sample_size: 500
       nDatasets: 5
-    - sample_size: 1000
-      nDatasets: 5
-
+  Dropouts:
+    - dropout: True
+      drop_cutoff: 0.5
+      drop_prob: 0.5
+    - dropout: True
+      drop_cutoff: 0.7
+      drop_prob: 0.7
   DimRed:
     - perplexity: 100
