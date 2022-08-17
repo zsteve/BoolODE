@@ -5,7 +5,7 @@
 #SBATCH --mem-per-cpu=4G
 #SBATCH --partition=mig
 #SBATCH --time=0-03:00:00
-#SBATCH --array=1-75
+#SBATCH --array=1-125
 #SBATCH --output=%x-%A_%a.out
 
 parameters=`sed -n "${SLURM_ARRAY_TASK_ID} p" params`

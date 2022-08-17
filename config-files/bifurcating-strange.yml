@@ -13,14 +13,15 @@ jobs:
     simulation_time: 10
     num_cells: 1000
     do_parallel: True
-    nClusters: 2    
+    nClusters: 2
 
 post_processing:
   GenSamples:
     - sample_size: 500
-      nDatasets: 1
-    - sample_size: 1000
-      nDatasets: 1
-
+      nDatasets: 5
+  Dropouts:
+    - dropout: True
+      drop_cutoff: 0.5
+      drop_prob: 0.5
   DimRed:
     - perplexity: 100
