@@ -21,5 +21,9 @@ datapath=__DATAPATH__
 
 ml load julia 
 mkdir $datapath/infer_output"_"$suffix
-julia $srcpath/infer.jl --X $datapath/X.npy --X_pca $datapath/X_pca.npy --P $datapath/P.npy --C $datapath/C.npy --k $k --lambda1 $lamda1 --lambda2 $lamda2 --outdir $datapath/infer_output"_"$suffix/
+for i in $(ls -d "$datapath/P_"*".npy"); do
+	ptype=$(echo $i | awk -F'P_' '{ print $2 }' | cut -d'.' -f 1)
+	echo Transition matrix $ptype
+	julia $srcpath/infer.jl --X $datapath/X.npy --X_pca $datapath/X_pca.npy --P $i --C $datapath/C.npy --k $k --lambda1 $lamda1 --lambda2 $lamda2 --outdir $datapath/infer_output"_"$suffix/ --suffix $ptype
+done
 
