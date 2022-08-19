@@ -1,8 +1,9 @@
 #!/bin/bash
 
 DIR_CUR=$(pwd)
-for i in $(ls | grep "dyn-BFStrange"); do 
-	for j in $(ls $i | grep "1000-[1-9]$"); do
+for i in $(ls | grep "dyn-" | grep "BFStrange"); do 
+	# for j in $(ls $i | grep "1000-[1-9]$"); do
+	for j in $(ls $i | grep "1000-[1-9]-.*" | grep -v coarse); do
 		DIR="$(pwd)/$i/$j"
 		echo "Preprocessing $DIR"
 		python ~/stephenz/sc-causal-grn/data_benchmarking/preprocess.py $DIR
