@@ -19,7 +19,8 @@ suffix=$eps"_"$lamda1"_"$lamda2
 srcpath="/data/gpfs/projects/punim0638/stephenz/sc-causal-grn/src"
 datapath=__DATAPATH__
 
-ml load julia 
+# ml load julia 
+JULIA=/home/stephenz/julia-1.8.0/bin/julia
 mkdir $datapath/infer_undir_output"_"$suffix
-julia $srcpath/infer.jl --X $datapath/X.npy --X_pca $datapath/X_pca.npy --C $datapath/C.npy --eps $eps --lambda1 $lamda1 --lambda2 $lamda2 --outdir $datapath/infer_undir_output"_"$suffix/
+$JULIA $srcpath/infer.jl --X $datapath/X.npy --X_pca $datapath/X_pca.npy --C $datapath/C.npy --eps $eps --lambda1 $lamda1 --lambda2 $lamda2 --outdir $datapath/infer_undir_output"_"$suffix/
 

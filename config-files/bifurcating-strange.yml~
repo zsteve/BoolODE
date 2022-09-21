@@ -11,13 +11,13 @@ jobs:
     model_definition: "dyn-bifurcating-strange.txt"
     model_initial_conditions: "dyn-bifurcating-strange_ics.txt"
     simulation_time: 10
-    num_cells: 2500
+    num_cells: 1000
     do_parallel: True
     nClusters: 2
 
 post_processing:
   GenSamples:
-    - sample_size: 1000
+    - sample_size: 500
       nDatasets: 5
   Dropouts:
     - dropout: True

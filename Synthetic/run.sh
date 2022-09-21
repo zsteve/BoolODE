@@ -19,12 +19,13 @@ suffix=$k"_"$lamda1"_"$lamda2
 srcpath="/data/gpfs/projects/punim0638/stephenz/sc-causal-grn/src"
 datapath=__DATAPATH__
 
-ml load julia 
+JULIA=/home/stephenz/julia-1.8.0/bin/julia
+# ml load julia 
 mkdir $datapath/infer_output"_"$suffix
 for i in $(ls -d "$datapath/P_"*".npy"); do
 # for i in $(ls -d "$datapath/P_velo_dot.npy"); do
 	ptype=$(echo $i | awk -F'P_' '{ print $2 }' | cut -d'.' -f 1)
 	echo Transition matrix $ptype
-	julia $srcpath/infer.jl --X $datapath/X.npy --X_pca $datapath/X_pca.npy --P $i --C $datapath/C.npy --k $k --lambda1 $lamda1 --lambda2 $lamda2 --outdir $datapath/infer_output"_"$suffix/ --suffix $ptype
+	$JULIA $srcpath/infer.jl --X $datapath/X.npy --X_pca $datapath/X_pca.npy --P $i --C $datapath/C.npy --k $k --lambda1 $lamda1 --lambda2 $lamda2 --outdir $datapath/infer_output"_"$suffix/ --suffix $ptype
 done
 
