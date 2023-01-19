@@ -1,0 +1,10 @@
+Gene	Rule
+g1	( not g6 )
+g2	( (g1 and (not EV)) or ((g7 or g2) and (EV)))
+g3	( (g2 and (not EV)) or (g4 and (EV)))
+g4	( (g3 and (not EV)) or (g2 and (EV)))
+g5	( (g4 and (not EV)) )
+g6	( (g5 or g6) ) 
+g7	( (g5 and (not EV)) )
+
+# EV=(g6 and (not g5))

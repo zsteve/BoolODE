@@ -7,13 +7,13 @@ global_settings:
   modeltype: 'hill'
 
 jobs:
-  - name: "dyn-BF"
-    model_definition: "dyn-bifurcating.txt"
-    model_initial_conditions: "dyn-bifurcating_ics.txt"
-    simulation_time: 5
+  - name: "dyn-SW"
+    model_definition: "dyn-switch.txt"
+    model_initial_conditions: "dyn-switch_ics.txt"
+    simulation_time: 17
     num_cells: 1000
     do_parallel: True
-    nClusters: 2    
+    nClusters: 1
 
 post_processing:
   GenSamples:

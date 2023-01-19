@@ -1,5 +1,0 @@
-(undo-tree-save-format-version . 1)
-"bde3dc46c8b2e3bb3c850ba38ffc43d2c530092e"
-[nil nil nil nil (25340 52586 521859 893000) 0 nil]
-([nil current ((nil rear-nonsticky nil 787 . 788) (nil fontified nil 1 . 788) (1 . 788) (t . -1)) nil (25340 52586 521854 96000) 0 nil])
-nil
