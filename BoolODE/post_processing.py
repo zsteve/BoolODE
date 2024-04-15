@@ -1,7 +1,7 @@
 import os
 from tqdm import tqdm
 import autograd.numpy as np
-from autograd import jacobian
+# from autograd import jacobian
 import pandas as pd
 from pathlib import Path
 from sklearn.cluster import KMeans
@@ -55,14 +55,14 @@ def genSamples(opts):
         # to build a sample
         sample = []
         # SZ: store Jacobians and velocity vectors
-        sample_jac = []
+        # sample_jac = []
         sample_v = []
         # SZ: autograd for Jacobian
         pars=list(pd.read_csv(opts['outPrefix'] + '/simulations/param.csv', index_col=0).to_numpy().flatten())
         print('Prefix: ', opts['outPrefix'])
         model = SourceFileLoader("model", opts['outPrefix'] + '/model.py').load_module()
         model_f = lambda x: model.Model(x, None, pars)
-        JModel = jacobian(model_f)
+        # JModel = jacobian(model_f)
         for fid, fid_full, cid in tqdm(zip(fids, fids_full, cellids)):
             df = pd.read_csv( opts['outPrefix'] + '/simulations/' + fid, index_col=0)
             df.sort_index(inplace=True)
@@ -71,20 +71,20 @@ def genSamples(opts):
             # janky code but it works??
             df_full = pd.read_csv( opts['outPrefix'] + '/simulations/' + fid_full, index_col=0)
             # don't sort index for Jacobian calculation
-            J = JModel(df_full[cid].to_numpy().flatten())
+            # J = JModel(df_full[cid].to_numpy().flatten())
             x_id = [i for (i, x) in enumerate(df_full.index) if 'x_' in x]
             p_id = [i for (i, x) in enumerate(df_full.index) if 'p_' in x]
             g_list = [x.split('_')[1] for (i, x) in enumerate(df_full.index) if 'x_' in x]
             interactionlist = list([x + '_' + y for (x, y) in product(g_list, repeat = 2)])
-            sample_jac.append(pd.DataFrame(J[x_id, :][:, p_id].flatten(), index = pd.Index(interactionlist)))
+            # sample_jac.append(pd.DataFrame(J[x_id, :][:, p_id].flatten(), index = pd.Index(interactionlist)))
             # calculate velocity
             sample_v.append(pd.DataFrame(model_f(df_full[cid].to_numpy().flatten())[x_id], index = pd.Index(g_list)))
             
         sampledf = pd.concat(sample,axis=1)
         sampledf.to_csv(outfpath + '/ExpressionData.csv')
-        sampledf_jac = pd.concat(sample_jac,axis=1)
-        sampledf_jac.columns = sampledf.columns
-        sampledf_jac.to_csv(outfpath + '/JacobianData.csv')
+        # sampledf_jac = pd.concat(sample_jac,axis=1)
+        # sampledf_jac.columns = sampledf.columns
+        # sampledf_jac.to_csv(outfpath + '/JacobianData.csv')
         sampledf_v = pd.concat(sample_v,axis=1)
         sampledf_v.columns = sampledf.columns
         sampledf_v.to_csv(outfpath + '/VelocityData.csv')
