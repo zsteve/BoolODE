@@ -1,0 +1,37 @@
+# Config file used to generate inputs for Beeline using Synthetic networks
+global_settings:
+  model_dir: "data"
+  output_dir: "../Synthetic"
+  do_simulations: True
+  do_post_processing: True
+  modeltype: 'hill'
+
+jobs:
+# - name: "dyn-FN4"
+#   model_definition: "dyn-fn4.txt"
+#   model_initial_conditions: "dyn-linear_ics.txt"
+#   simulation_time: 5
+#   num_cells: 1000
+# - name: "dyn-CN5"
+#   model_definition: "dyn-cn5.txt"
+#   model_initial_conditions: "dyn-linear_ics.txt"
+#   simulation_time: 5
+#   num_cells: 1000
+# - name: "dyn-FN8"
+#   model_definition: "dyn-fn8.txt"
+#   model_initial_conditions: "dyn-linear_ics.txt"
+#   simulation_time: 7
+#   num_cells: 1000
+- name: "dyn-BN8"
+  model_definition: "dyn-bn8.txt"
+  model_initial_conditions: "dyn-linear_ics.txt"
+  simulation_time: 7
+  num_cells: 1000
+        
+post_processing:
+  GenSamples:
+    - sample_size: 1000
+      nDatasets: 1
+
+  DimRed:
+    - perplexity: 100

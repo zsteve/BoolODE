@@ -1,0 +1,27 @@
+# Config file used to generate inputs for Beeline using Synthetic networks
+global_settings:
+  model_dir: "data"
+  output_dir: "Synthetic"
+  do_simulations: True
+  do_post_processing: True
+  modeltype: 'hill'
+
+jobs:
+  - name: "dyn-BFStrange"
+    model_definition: "dyn-bifurcating-strange.txt"
+    model_initial_conditions: "dyn-bifurcating-strange_ics.txt"
+    simulation_time: 10
+    num_cells: 1000
+    do_parallel: True
+    nClusters: 2
+
+post_processing:
+  GenSamples:
+    - sample_size: 500
+      nDatasets: 5
+  Dropouts:
+    - dropout: True
+      drop_cutoff: 0.5
+      drop_prob: 0.5
+  DimRed:
+    - perplexity: 100
