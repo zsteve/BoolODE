@@ -54,6 +54,7 @@ def genSamples(opts):
         # Read simulations from input dataset #psetid
         # to build a sample
         sample = []
+        sample_full = []
         # SZ: store Jacobians and velocity vectors
         sample_jac = []
         sample_v = []
@@ -70,6 +71,7 @@ def genSamples(opts):
             # SZ: sample full gene+protein expr state for Jacobian calculation
             # janky code but it works??
             df_full = pd.read_csv( opts['outPrefix'] + '/simulations/' + fid_full, index_col=0)
+            sample_full.append(df_full[cid].to_frame())
             # don't sort index for Jacobian calculation
             J = JModel(df_full[cid].to_numpy().flatten())
             x_id = [i for (i, x) in enumerate(df_full.index) if 'x_' in x]
@@ -82,6 +84,8 @@ def genSamples(opts):
             
         sampledf = pd.concat(sample,axis=1)
         sampledf.to_csv(outfpath + '/ExpressionData.csv')
+        sampledf_full = pd.concat(sample_full,axis=1)
+        sampledf_full.to_csv(outfpath + '/ExpressionData_full.csv')
         sampledf_jac = pd.concat(sample_jac,axis=1)
         sampledf_jac.columns = sampledf.columns
         sampledf_jac.to_csv(outfpath + '/JacobianData.csv')
