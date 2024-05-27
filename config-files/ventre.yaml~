@@ -31,7 +31,7 @@ jobs:
 post_processing:
   GenSamples:
     - sample_size: 1000
-      nDatasets: 10
+      nDatasets: 1
 
   DimRed:
     - perplexity: 100
