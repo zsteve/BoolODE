@@ -1,0 +1,27 @@
+# Config file used to generate inputs for Beeline using Boolean models
+global_settings:
+  model_dir: "data"
+  output_dir: "Curated"
+  do_simulations: True
+  do_post_processing: True
+  modeltype: 'hill'
+  do_parallel: True
+
+jobs:
+  - name: "HSC"
+    model_definition: "HSC.txt"
+    model_initial_conditions: "HSC_ics.txt"
+    simulation_time: 8
+    num_cells: 1000
+    do_parallel: True
+    nClusters: 4
+
+post_processing:
+  GenSamples:
+    - sample_size: 1000
+      nDatasets: 1
+      do_parallel: True
+
+  DimRed:
+    - perplexity: 100
+

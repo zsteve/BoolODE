@@ -1,0 +1,78 @@
+global_settings:
+  do_parallel: true
+  do_post_processing: true
+  do_simulations: true
+  model_dir: data
+  modeltype: hill
+  output_dir: Curated
+jobs:
+- do_parallel: true
+  model_definition: HSC.txt
+  model_initial_conditions: HSC_ics.txt
+  nClusters: 4
+  name: HSC
+  num_cells: 1000
+  simulation_time: 8
+- do_parallel: true
+  model_definition: HSC_ko_Gata1.txt
+  model_initial_conditions: HSC_ko_Gata1_ics.txt
+  nClusters: 4
+  name: HSC_ko_Gata1
+  num_cells: 1000
+  simulation_time: 8
+- do_parallel: true
+  model_definition: HSC_ko_Fog1.txt
+  model_initial_conditions: HSC_ko_Fog1_ics.txt
+  nClusters: 4
+  name: HSC_ko_Fog1
+  num_cells: 1000
+  simulation_time: 8
+- do_parallel: true
+  model_definition: HSC_ko_Eklf.txt
+  model_initial_conditions: HSC_ko_Eklf_ics.txt
+  nClusters: 4
+  name: HSC_ko_Eklf
+  num_cells: 1000
+  simulation_time: 8
+- do_parallel: true
+  model_definition: HSC_ko_Fli1.txt
+  model_initial_conditions: HSC_ko_Fli1_ics.txt
+  nClusters: 4
+  name: HSC_ko_Fli1
+  num_cells: 1000
+  simulation_time: 8
+- do_parallel: true
+  model_definition: HSC_ko_Scl.txt
+  model_initial_conditions: HSC_ko_Scl_ics.txt
+  nClusters: 4
+  name: HSC_ko_Scl
+  num_cells: 1000
+  simulation_time: 8
+- do_parallel: true
+  model_definition: HSC_ko_cJun.txt
+  model_initial_conditions: HSC_ko_cJun_ics.txt
+  nClusters: 4
+  name: HSC_ko_cJun
+  num_cells: 1000
+  simulation_time: 8
+- do_parallel: true
+  model_definition: HSC_ko_EgrNab.txt
+  model_initial_conditions: HSC_ko_EgrNab_ics.txt
+  nClusters: 4
+  name: HSC_ko_EgrNab
+  num_cells: 1000
+  simulation_time: 8
+- do_parallel: true
+  model_definition: HSC_ko_Gfi1.txt
+  model_initial_conditions: HSC_ko_Gfi1_ics.txt
+  nClusters: 4
+  name: HSC_ko_Gfi1
+  num_cells: 1000
+  simulation_time: 8
+post_processing:
+  DimRed:
+  - perplexity: 100
+  GenSamples:
+  - do_parallel: true
+    nDatasets: 1
+    sample_size: 1000

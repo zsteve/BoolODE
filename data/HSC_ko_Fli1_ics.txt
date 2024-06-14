@@ -1,0 +1,3 @@
+Genes	Values
+['Cebpa','Pu1','Gata2']	[1,1,1]
+['Fli1']	[0]
